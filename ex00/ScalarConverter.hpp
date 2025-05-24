@@ -5,6 +5,8 @@
 #include <cstdlib> // pour strtof
 #include <cctype> // pour isdigit
 #include <cmath> // poour isnan et isinf
+#include "scalar.h"
+#include "ScalarValue.hpp"
 
 class	ScalarConverter {
 	private:

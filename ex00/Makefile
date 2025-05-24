@@ -5,7 +5,10 @@ CC = c++
 CFLAGS = -Wall -Wextra -Werror -g -std=c++98
 
 SRC =	main.cpp \
-		ScalarConverter.cpp
+		ScalarConverter.cpp \
+		getType.cpp \
+		display.cpp \
+		scalar.cpp
 
 OBJ_DIR = obj
 OBJ = $(SRC:%.cpp=$(OBJ_DIR)/%.o)
