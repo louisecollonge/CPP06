@@ -1,9 +1,7 @@
 #include "scalar.h"
 
 bool isChar(std::string str) {
-	if (str.length() == 1)
-		return true;
-	else if (str.length() == 3 && str[0] == '\'' && str[2] == '\'')
+	if (str.length() == 3 && str[0] == '\'' && str[2] == '\'')
 		return true;
 	return false;
 }

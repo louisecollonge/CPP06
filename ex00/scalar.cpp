@@ -27,10 +27,7 @@ ScalarValue	convertLiteral(std::string literal)
 		result.validFloat = true;
 		result.validDouble = true;
 		
-		if (literal.length() == 1)
-			result.c = literal[0];
-		else
-			result.c = literal[1];
+		result.c = literal[1];
 		result.i = static_cast<int>(result.c);
 		result.f = static_cast<float>(result.c);
 		result.d = static_cast<double>(result.c);
