@@ -1,5 +1,13 @@
 #include "scalar.h"
 
+bool isChar(std::string str) {
+	if (str.length() == 1)
+		return true;
+	else if (str.length() == 3 && str[0] == '\'' && str[2] == '\'')
+		return true;
+	return false;
+}
+
 bool isInt(std::string str) {
 	if (str[0] != '-' && str[0] != '+' && !isdigit(str[0]))
 		return false ;
@@ -14,6 +22,8 @@ bool isInt(std::string str) {
 }
 
 bool isFloat(std::string str) {
+	if (str[0] != '-' && str[0] != '+' && !isdigit(str[0]))
+		return false ;
 	char* end; // represente pointeur vers le dernier charactere de str
 	std::strtof(str.c_str(), &end); // str to float, stocke dans *end a partir du f
 	if (*end == 'f' && *(end + 1) == '\0') // verifier que termine bien par f uniquement
@@ -22,8 +32,10 @@ bool isFloat(std::string str) {
 }
 
 bool isDouble(std::string str) {
+	if (str[0] != '-' && str[0] != '+' && !isdigit(str[0]))
+		return false ;
 	char* end;
-	std::strtof(str.c_str(), &end);
+	std::strtod(str.c_str(), &end);
 	if (*end == '\0') // idem que float mais sans f final
 		return true;
 	return false;
@@ -32,7 +44,7 @@ bool isDouble(std::string str) {
 std::string getType(std::string str) {
 	if (str[0] == '\0')
 		return "unknown";
-	if (str.length() == 1 && !isdigit(str[0]))
+	if (isChar(str))
 		return "char";
 	if (isInt(str))
 		return "int";

@@ -27,7 +27,10 @@ ScalarValue	convertLiteral(std::string literal)
 		result.validFloat = true;
 		result.validDouble = true;
 		
-		result.c = literal[0];
+		if (literal.length() == 1)
+			result.c = literal[0];
+		else
+			result.c = literal[1];
 		result.i = static_cast<int>(result.c);
 		result.f = static_cast<float>(result.c);
 		result.d = static_cast<double>(result.c);
@@ -57,14 +60,22 @@ ScalarValue	convertLiteral(std::string literal)
 	}
 	else {
 	// double: en 1er car necessaire pour le reste
-		result.validDouble = true;
+		errno = 0;
 		result.d = strtod(literal.c_str(), NULL);
+		if (errno == ERANGE) //over ou underflow
+			result.validDouble = false;
+		else
+			result.validDouble = true;
+
 	// float:
 		result.f = static_cast<float>(result.d);
-		if (result.d <= std::numeric_limits<float>::max() && result.d >= -std::numeric_limits<float>::max()) // pourquoi pas min() ?
+		if (!std::isnan(result.d) && !std::isinf(result.d) // detecte nan et +-inf
+			&& result.d <= std::numeric_limits<float>::max() 
+			&& result.d >= -std::numeric_limits<float>::max()) // pas min() car min est la + petite valeur positive (cad tres proche de zero)
 			result.validFloat = true;
 		else
 			result.validFloat = false;
+
 	// int:
 		if (result.d <= std::numeric_limits<int>::max() && result.d >= std::numeric_limits<int>::min()
 			&& !std::isnan(result.d) && !std::isinf(result.d)) // retourne true si c'est + l'infini ou - l'infini
@@ -73,6 +84,7 @@ ScalarValue	convertLiteral(std::string literal)
 			result.i = static_cast<int>(result.d);
 		} else
 			result.validInt = false;
+
 	// char:
 		if (result.validInt && result.i >= 0 && result.i <= 127) {
 			result.validChar = true; // verification de la printabilite dans la fonction display

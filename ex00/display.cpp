@@ -22,24 +22,43 @@ void	displayScalarValue(ScalarValue value)
 			std::cout << "float:	";
 			if (std::isinf(value.f) && value.f > 0) // forcer l'afficher du + pour inff
 				std::cout << "+";
-			if (value.f == static_cast<int>(value.f) // si cast en int == float, alors rien apres la virgule: forcer affichage .0f
-				&& (value.f < 1e+6 && value.f >= 1e+4)) // l'affichage est en format exponentiel en dehors de ces limites, auquel cas pas besoin de .0
-				std::cout << value.f << ".0f" << std::endl;
+			double intpart;
+			if (value.f == 0.0 || value.f == -0.0) // afficher 0.0f si on a 0 ou -0
+				std::cout << "0.0f" << std::endl;
+			else if (std::modf(value.d, &intpart) == 0.0){ // teste si partie fractionnaire est nulle
+				if ((value.f != 0.0f) && (value.f >= 1e4 || value.f < 1e-4) && (value.f >= -1e-4 || value.f <= -1e4)) // devient trop long, on affichera exponentielle de 10 avec std::scientific. 0 et un cas particulier a ajouter.
+					std::cout << std::scientific << std::setprecision(7) << value.f << "f" << std::endl; // setprecision force l'affichage d'un chiffre apres la virgule
+				else
+					std::cout << std::fixed << std::setprecision(1) << value.f << "f" << std::endl;
+			} else
+				std::cout << std::fixed << std::setprecision(7) << value.f << "f" << std::endl;
+		} else if (std::isinf(value.f)) {
+			if (value.f > 0)
+				std::cout << "float:	+inff" << std::endl;
 			else
-				std::cout << value.f << "f" << std::endl;
+				std::cout << "float:	-inff" << std::endl;
 		} else
 			std::cout << "float:	impossible" << std::endl;
 	}
 	{ // double:
-		if (value.validDouble) {
-			std::cout << "double:	";
-			if (std::isinf(value.d) && value.d > 0) // forcer l'afficher du + pour inf
-				std::cout << "+";
-			if (value.d == static_cast<int>(value.d) // si cast en int == double, alors rien apres la virgule: forcer affichage .0
-				&& (value.d < 1e+6 && value.d >= 1e+4)) // l'affichage est en format exponentiel en dehors de ces limites, auquel cas pas besoin de .0
-				std::cout << value.d << ".0" << std::endl;
+		if (std::isnan(value.d))
+			std::cout << "double:	nan" << std::endl;
+		else if (std::isinf(value.d)) {
+			if (value.d > 0)
+				std::cout << "double:	+inf" << std::endl;
 			else
-				std::cout << value.d << std::endl;
+				std::cout << "double:	-inf" << std::endl;
+		} else if (value.validDouble) {
+			double intpart;
+			if (value.d == 0.0 || value.d == -0.0) // afficher 0.0 si on a 0 ou -0
+				std::cout << "double:	" << "0.0" << std::endl;
+			else if (std::modf(value.d, &intpart) == 0.0) { // teste si partie fractionnaire est nulle
+				if ((value.d != 0.0) && (value.d >= 1e4 || value.d < 1e-4) && (value.d >= -1e-4 || value.d <= -1e4)) // devient trop long, on affichera exponentielle de 10 avec std::scientific. 0 et un cas particulier a ajouter.
+					std::cout << "double:	" << std::scientific << std::setprecision(16) << value.d << std::endl; // setprecision force l'affichage d'un chiffre apres la virgule
+				else
+					std::cout << "double:	" << std::fixed << std::setprecision(1) << value.d << std::endl;
+			} else
+				std::cout << "double:	" << std::fixed << std::setprecision(16) << value.d << std::endl;
 		} else
 			std::cout << "double:	impossible" << std::endl;
 	}
