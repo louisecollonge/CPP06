@@ -16,7 +16,7 @@ int main(void) {
 	std::cout << ORANGE << "Original data:\n"
 			  << "\tname:\t\t" << original._name
 			  << "\n\tspecies:\t" << original._species
-			  << "\n\tage:\t\t" << original._age << " years"
+			  << "\n\tage:\t\t" << original._age << " years old"
 			  << "\n\tis it cute?\t" << (original._cute? "yes" : "no")
 			  << RESET << std::endl << std::endl;
 	
@@ -28,7 +28,7 @@ int main(void) {
 	std::cout << PINK << "Deserialized data:\n"
 			  << "\tname:\t\t" << result->_name
 			  << "\n\tspecies:\t" << result->_species
-			  << "\n\tage:\t\t" << result->_age << " years"
+			  << "\n\tage:\t\t" << result->_age << " years old"
 			  << "\n\tis it cute?\t" << (result->_cute? "yes" : "no")
 			  << RESET << std::endl;
 

@@ -2,14 +2,14 @@
 #include "A.hpp"
 #include "B.hpp"
 #include "C.hpp"
-#include "Wrong.hpp"
+
+#include "Wrong.hpp" // pour tester un cas d'echec
 #include <ctime> // pour time
 #include <cstdlib> // pour srand
 
 #define PINK	 	"\033[0;35m"
 #define ORANGE		"\033[38;5;214m"
 #define RESET		"\033[0m"
-
 
 Base *generate(void) 
 {
@@ -30,7 +30,7 @@ Base *generate(void)
 
 void identify(Base *p)
 {
-	if (dynamic_cast<A*>(p))
+	if (dynamic_cast<A*>(p)) // convertit et teste si c'est possible: si oui, retourne pointeur A*, sinon retourne NULL
 		std::cout << ORANGE << "Type A" << RESET << std::endl;
 	else if (dynamic_cast<B*>(p))
 		std::cout << ORANGE << "Type B" << RESET << std::endl;
@@ -44,7 +44,7 @@ void identify(Base &p)
 {
 	bool found = false;
 	try {
-		(void)dynamic_cast<A&>(p);
+		(void)dynamic_cast<A&>(p); // convertit et teste si c'est possible: si oui, retourne reference A&, sinon throw exception
 		std::cout << PINK << "Type A" << RESET << std::endl;
 		found = true;
 	} catch (std::exception &e) {
@@ -86,9 +86,8 @@ int main(void) {
 /* 
 Dynamic_cast: 
 
-Conversion entre classes (entre objets d'une classe abstraite, 
-entre objets de classes heritieres de cette classe abstraite,
-et entre objet de la classe abstraite et objet de classe heritiere)
+Teste conversion entre classes: entre objet de la classe abstraite et objet de classe heritiere,
+ici Base et A/B/C.
 
 - si pointeur en argt: retourne NULL si echec
 - si reference en argt: throw bad_cast exception si echec
