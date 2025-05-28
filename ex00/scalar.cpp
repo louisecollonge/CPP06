@@ -56,10 +56,10 @@ ScalarValue	convertLiteral(std::string literal)
 		result.validDouble = false;
 	}
 	else {
-	// double: en 1er car necessaire pour le reste
+	// tester si au-dela des limites du double:
 		errno = 0;
 		result.d = strtod(literal.c_str(), NULL);
-		if (errno == ERANGE) //over ou underflow
+		if (errno == ERANGE) //overflow positif ou negatif
 			result.validDouble = false;
 		else
 			result.validDouble = true;
@@ -74,7 +74,8 @@ ScalarValue	convertLiteral(std::string literal)
 			result.validFloat = false;
 
 	// int:
-		if (result.d <= std::numeric_limits<int>::max() && result.d >= std::numeric_limits<int>::min()
+		if (result.d <= std::numeric_limits<int>::max() 
+			&& result.d >= std::numeric_limits<int>::min() // verifie si overflow un int
 			&& !std::isnan(result.d) && !std::isinf(result.d)) // retourne true si c'est + l'infini ou - l'infini
 		{
 			result.validInt = true;
@@ -84,11 +85,12 @@ ScalarValue	convertLiteral(std::string literal)
 
 	// char:
 		if (result.validInt && result.i >= 0 && result.i <= 127) {
-			result.validChar = true; // verification de la printabilite dans la fonction display
+			result.validChar = true; // verification si affichable dans la fonction display
 			result.c = static_cast<char>(result.i);
 		} else
 			result.validChar = false;
 	} 
+	
 	return result;
 }
 

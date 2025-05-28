@@ -4,7 +4,7 @@ bool isChar(std::string str) {
 	if (str.length() == 3 && str[0] == '\'' && str[2] == '\'')
 		return true;
 	return false;
-}
+} // un char est forcement entre single quotes pour le differencier d'un int
 
 bool isInt(std::string str) {
 	if (str[0] != '-' && str[0] != '+' && !isdigit(str[0]))

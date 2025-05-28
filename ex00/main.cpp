@@ -11,7 +11,6 @@ void myTests() {
 		"0", "42", "-42", 
 		"4.2", "-4.2", "4.2f", "-4.2f", "42.0f", "42.0",
 		"'a'", "'z'", "'A'", "'Z'",
-		"\n", "\t", "\b", "\x01",
 		"2147483648", "-2147483649", // INT_MAX + 1 et INT_MIN - 1
 		"340282346638528859811704183484516925440.0f", // Float max
 		"1e39f",                                      // Float overflow
@@ -26,7 +25,10 @@ void myTests() {
 		"42f42", "4.2.3", "--4.2f", "4..2", "4f.2", "+-42" "42ff", "42.0ff", "hello", "42hello",
 	};
 	for (size_t i = 0; i < sizeof(tests) / sizeof(std::string); ++i) {
-		std::cout << ORANGE << "Test #" << i + 1 << ": \"" << tests[i] << "\"" << " (" << getType(tests[i]) << ")" << RESET << std::endl;
+		std::cout << ORANGE << "Test #" << i + 1 
+				  << ": \"" << tests[i] << "\"" 
+				  << " (" << getType(tests[i]) << ")" 
+				  << RESET << std::endl;
 		ScalarConverter::convert(tests[i]);
 		std::cout << ORANGE << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << RESET << std::endl;
 	}
