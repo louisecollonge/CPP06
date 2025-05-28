@@ -17,3 +17,13 @@ class Serializer {
 		static uintptr_t serialize(Data* ptr);
 		static Data* deserialize(uintptr_t raw);
 };
+
+/* 
+
+Pourquoi uintptr_t ?
+
+Entier non signe concu pour contenir n'importe quelle adresse memoire
+sans perte d'information (void*, data*, etc). 
+C'est le type entier "officiel" pour stocker un pointeur/
+
+*/
