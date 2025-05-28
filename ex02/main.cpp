@@ -82,3 +82,14 @@ int main(void) {
 	delete wrong;
 	return 0 ;
 }
+
+/* 
+Dynamic_cast: 
+
+Conversion entre classes (entre objets d'une classe abstraite, 
+entre objets de classes heritieres de cette classe abstraite,
+et entre objet de la classe abstraite et objet de classe heritiere)
+
+- si pointeur en argt: retourne NULL si echec
+- si reference en argt: throw bad_cast exception si echec
+*/

@@ -26,7 +26,9 @@ Toute chaine creee ou modifiee dynamiquement n'est pas literale.
 Une chaine literale est definie au moment de la compilation.
 Une chaine non literale est definie au moment de l'execution.
 
-static_cast<T>(value) :		value -> T
+Static_cast :
+Permet de convertir des types connus, sans verification a l'execution
 
-double -> int :		static_cast<int>(double)
+static_cast<newType>(oldType value) :		oldType value -> newType value
+double -> int :								static_cast<int>(double)
 */

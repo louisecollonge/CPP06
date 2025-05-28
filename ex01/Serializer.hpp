@@ -19,11 +19,11 @@ class Serializer {
 };
 
 /* 
+Uintptr_t :
+Entier non signe (que positif) concu pour contenir n'importe quelle adresse memoire
+sans perte d'information (void*, data*, etc).
 
-Pourquoi uintptr_t ?
-
-Entier non signe concu pour contenir n'importe quelle adresse memoire
-sans perte d'information (void*, data*, etc). 
-C'est le type entier "officiel" pour stocker un pointeur/
-
+Reinterpret_cast : 
+Convertir des pointeurs donc des blocs memoire (= "bas niveau")
+Dangereux a manipuler
 */
