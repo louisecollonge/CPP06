@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <string>
+#include <stdint.h> // pour uintptr_t
 #include "data.h"
 
 class Serializer {
